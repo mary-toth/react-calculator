@@ -1,57 +1,64 @@
-import React, { useState, useEffect } from 'react'
+// @ts-nocheck
+import React, { useState } from 'react'
 
 export function App() {
   // uddate this when user presses a digit:
-  const [number, setNumber] = useState(0)
+  const [display, setDisplay] = useState('')
 
   // When the user presses an operator (like +) copy that value
   // into another state called "first number" - and record what operator they chose
-  const [firstNum, setFirstNum] = useState(0)
-  const [secondNum, setSecondNum] = useState(0)
+  const [firstNum, setFirstNum] = useState('')
 
-  const [total, setTotal] = useState(0)
-
-  function setACButton() {
-    setNumber(0)
+  function handleACButton() {
+    setDisplay(0)
     setFirstNum(0)
-    setSecondNum(0)
-    setTotal(0)
   }
 
   function percentageButton() {
-    setNumber(number / 100)
+    setDisplay(display / 100)
 
-    console.log({ number })
+    console.log({ number: display })
   }
 
   function divisionButton() {
-    setFirstNum(number)
-    setNumber(0)
+    setFirstNum(display)
+    setDisplay(0)
   }
   function multiplyButton() {
-    setFirstNum(number)
-    setNumber(0)
+    setFirstNum(display)
+    setDisplay(0)
   }
 
   function subtractButton() {
-    setFirstNum(number)
-    setNumber(0)
+    setFirstNum(display)
+    setDisplay(0)
   }
 
   function addButton() {
-    setFirstNum(number)
-    setNumber(0)
+    setFirstNum(display)
+    setDisplay(0)
+  }
+
+  function handleClickNumber(event) {
+    if (display[0] === '0') {
+      setDisplay(event.target.value)
+    }
+    console.log(display + event.target.value)
+    setDisplay(display + event.target.value)
+    // setFirstNum(display + event.target.value)
   }
 
   function equalButton() {
-    setTotal(firstNum + secondNum)
+    console.log(1)
+    console.log(parseInt(firstNum) + parseInt(display))
+    setDisplay(parseInt(firstNum) + parseInt(display))
   }
   return (
     <main>
       <div className="calculator">
-        <div className="display">{number}</div>
+        <div className="display">{display}</div>
         <div className="buttons">
-          <button className="button fn" onClick={setACButton}>
+          <button className="button fn" onClick={handleACButton}>
             AC
           </button>
           <button className="button fn">&plusmn;</button>
@@ -61,29 +68,17 @@ export function App() {
           <button className="button op" onClick={divisionButton}>
             &divide;
           </button>
-          <button
-            className="button"
-            onClick={function () {
-              setNumber(number + '7')
-              console.log(number)
-            }}
-          >
+          <button className="button" value={7} onClick={handleClickNumber}>
             7
           </button>
-          <button
-            className="button"
-            onClick={function () {
-              setNumber(number + '8')
-              console.log(number)
-            }}
-          >
+          <button className="button" value={8} onClick={handleClickNumber}>
             8
           </button>
           <button
             className="button"
             onClick={function () {
-              setNumber(number + '9')
-              console.log(number)
+              setDisplay(display + '9')
+              console.log(display)
             }}
           >
             9
@@ -94,8 +89,8 @@ export function App() {
           <button
             className="button"
             onClick={function () {
-              setNumber(number + '4')
-              console.log(number)
+              setDisplay(display + '4')
+              console.log(display)
             }}
           >
             4
@@ -103,8 +98,8 @@ export function App() {
           <button
             className="button"
             onClick={function () {
-              setNumber(number + '5')
-              console.log(number)
+              setDisplay(display + '5')
+              console.log(display)
             }}
           >
             5
@@ -112,8 +107,8 @@ export function App() {
           <button
             className="button"
             onClick={function () {
-              setNumber(number + '6')
-              console.log(number)
+              setDisplay(display + '6')
+              console.log(display)
             }}
           >
             6
@@ -124,8 +119,8 @@ export function App() {
           <button
             className="button"
             onClick={function () {
-              setNumber(number + '1')
-              console.log(number)
+              setDisplay(display + '1')
+              console.log(display)
             }}
           >
             1
@@ -133,8 +128,8 @@ export function App() {
           <button
             className="button"
             onClick={function () {
-              setNumber(number + '2')
-              console.log(number)
+              setDisplay(display + '2')
+              console.log(display)
             }}
           >
             2
@@ -142,7 +137,7 @@ export function App() {
           <button
             className="button"
             onClick={function () {
-              setNumber(number + '3')
+              setDisplay(display + '3')
               console.log(3)
             }}
           >
@@ -154,14 +149,16 @@ export function App() {
           <button
             className="button x2"
             onClick={function () {
-              setNumber(number + '0')
-              console.log(number)
+              setDisplay(display + '0')
+              console.log(display)
             }}
           >
             0
           </button>
           <button className="button">.</button>
-          <button className="button op">=</button>
+          <button className="button op" onClick={equalButton}>
+            =
+          </button>
         </div>
       </div>
     </main>
