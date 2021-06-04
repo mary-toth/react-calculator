@@ -40,18 +40,20 @@ export function App() {
   }
 
   function handleClickNumber(event) {
-    if (display[0] === '0') {
-      setDisplay(event.target.value)
-    }
     console.log(display + event.target.value)
     setDisplay(display + event.target.value)
-    // setFirstNum(display + event.target.value)
   }
 
   function equalButton() {
-    console.log(1)
-    console.log(parseInt(firstNum) + parseInt(display))
-    setDisplay(parseInt(firstNum) + parseInt(display))
+    if ('+') {
+      setDisplay(parseInt(firstNum) + parseInt(display))
+    } else if ('-') {
+      setDisplay(parseInt(firstNum) - parseInt(display))
+    } else if ('/') {
+      setDisplay(parseInt(firstNum) / parseInt(display))
+    } else if ('*') {
+      setDisplay(parseInt(firstNum) * parseInt(display))
+    }
   }
   return (
     <main>
@@ -65,7 +67,7 @@ export function App() {
           <button className="button fn" onClick={percentageButton}>
             %
           </button>
-          <button className="button op" onClick={divisionButton}>
+          <button className="button op" value="/" onClick={divisionButton}>
             &divide;
           </button>
           <button className="button" value={7} onClick={handleClickNumber}>
@@ -74,55 +76,25 @@ export function App() {
           <button className="button" value={8} onClick={handleClickNumber}>
             8
           </button>
-          <button
-            className="button"
-            onClick={function () {
-              setDisplay(display + '9')
-              console.log(display)
-            }}
-          >
+          <button className="button" value={9} onClick={handleClickNumber}>
             9
           </button>
-          <button className="button op" onClick={multiplyButton}>
+          <button className="button op" value="*" onClick={multiplyButton}>
             &times;
           </button>
-          <button
-            className="button"
-            onClick={function () {
-              setDisplay(display + '4')
-              console.log(display)
-            }}
-          >
+          <button className="button" value={4} onClick={handleClickNumber}>
             4
           </button>
-          <button
-            className="button"
-            onClick={function () {
-              setDisplay(display + '5')
-              console.log(display)
-            }}
-          >
+          <button className="button" value={5} onClick={handleClickNumber}>
             5
           </button>
-          <button
-            className="button"
-            onClick={function () {
-              setDisplay(display + '6')
-              console.log(display)
-            }}
-          >
+          <button className="button" value={6} onClick={handleClickNumber}>
             6
           </button>
-          <button className="button op" onClick={subtractButton}>
+          <button className="button op" value="-" onClick={subtractButton}>
             &minus;
           </button>
-          <button
-            className="button"
-            onClick={function () {
-              setDisplay(display + '1')
-              console.log(display)
-            }}
-          >
+          <button className="button" value={1} onClick={handleClickNumber}>
             1
           </button>
           <button
@@ -134,25 +106,13 @@ export function App() {
           >
             2
           </button>
-          <button
-            className="button"
-            onClick={function () {
-              setDisplay(display + '3')
-              console.log(3)
-            }}
-          >
+          <button className="button" value={3} onClick={handleClickNumber}>
             3
           </button>
-          <button className="button op" onClick={addButton}>
+          <button className="button op" value="+" onClick={addButton}>
             +
           </button>
-          <button
-            className="button x2"
-            onClick={function () {
-              setDisplay(display + '0')
-              console.log(display)
-            }}
-          >
+          <button className="button x2" value={0} onClick={handleClickNumber}>
             0
           </button>
           <button className="button">.</button>
