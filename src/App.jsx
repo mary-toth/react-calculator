@@ -3,40 +3,14 @@ import React, { useState } from 'react'
 
 export function App() {
   // uddate this when user presses a digit:
-  const [display, setDisplay] = useState('')
-
-  // When the user presses an operator (like +) copy that value
-  // into another state called "first number" - and record what operator they chose
-  const [firstNum, setFirstNum] = useState('')
+  const [display, setDisplay] = useState(0)
+  const [firstNum, setFirstNum] = useState(0)
+  const [operator, setOperator] = useState(0)
 
   function handleACButton() {
     setDisplay(0)
     setFirstNum(0)
-  }
-
-  function percentageButton() {
-    setDisplay(display / 100)
-
-    console.log({ number: display })
-  }
-
-  function divisionButton() {
-    setFirstNum(display)
-    setDisplay(0)
-  }
-  function multiplyButton() {
-    setFirstNum(display)
-    setDisplay(0)
-  }
-
-  function subtractButton() {
-    setFirstNum(display)
-    setDisplay(0)
-  }
-
-  function addButton() {
-    setFirstNum(display)
-    setDisplay(0)
+    setOperator('')
   }
 
   function handleClickNumber(event) {
@@ -44,15 +18,28 @@ export function App() {
     setDisplay(display + event.target.value)
   }
 
-  function equalButton() {
-    if ('+') {
-      setDisplay(parseInt(firstNum) + parseInt(display))
-    } else if ('-') {
-      setDisplay(parseInt(firstNum) - parseInt(display))
-    } else if ('/') {
-      setDisplay(parseInt(firstNum) / parseInt(display))
-    } else if ('*') {
-      setDisplay(parseInt(firstNum) * parseInt(display))
+  function handleOperator(event) {
+    setFirstNum(parseInt(display))
+    setDisplay(0)
+    setOperator(event.target.textContent)
+  }
+  function handleEqualButton() {
+    if (display && firstNum) {
+      switch (operator) {
+        case '/':
+          setDisplay(parseInt(firstNum) / parseInt(display))
+          break
+        case '+':
+          setDisplay(parseInt(firstNum) + parseInt(display))
+          break
+        case '-':
+          setDisplay(parseInt(firstNum) - parseInt(display))
+          break
+        case '*':
+          setDisplay(parseInt(firstNum) * parseInt(display))
+        default:
+          break
+      }
     }
   }
   return (
@@ -64,10 +51,10 @@ export function App() {
             AC
           </button>
           <button className="button fn">&plusmn;</button>
-          <button className="button fn" onClick={percentageButton}>
+          <button className="button fn" onClick={handleOperator}>
             %
           </button>
-          <button className="button op" value="/" onClick={divisionButton}>
+          <button className="button op" value="/" onClick={handleOperator}>
             &divide;
           </button>
           <button className="button" value={7} onClick={handleClickNumber}>
@@ -79,7 +66,7 @@ export function App() {
           <button className="button" value={9} onClick={handleClickNumber}>
             9
           </button>
-          <button className="button op" value="*" onClick={multiplyButton}>
+          <button className="button op" value="*" onClick={handleOperator}>
             &times;
           </button>
           <button className="button" value={4} onClick={handleClickNumber}>
@@ -91,7 +78,7 @@ export function App() {
           <button className="button" value={6} onClick={handleClickNumber}>
             6
           </button>
-          <button className="button op" value="-" onClick={subtractButton}>
+          <button className="button op" value="-" onClick={handleOperator}>
             &minus;
           </button>
           <button className="button" value={1} onClick={handleClickNumber}>
@@ -109,14 +96,14 @@ export function App() {
           <button className="button" value={3} onClick={handleClickNumber}>
             3
           </button>
-          <button className="button op" value="+" onClick={addButton}>
+          <button className="button op" value="+" onClick={handleOperator}>
             +
           </button>
           <button className="button x2" value={0} onClick={handleClickNumber}>
             0
           </button>
           <button className="button">.</button>
-          <button className="button op" onClick={equalButton}>
+          <button className="button op" onClick={handleEqualButton}>
             =
           </button>
         </div>
