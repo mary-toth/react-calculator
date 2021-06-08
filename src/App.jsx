@@ -22,12 +22,12 @@ export function App() {
   function handleOperator(event) {
     setFirstNum(parseInt(display))
     setDisplay(0)
-    setOperator(event.target.textContent)
+    setOperator(event.target.innerText)
   }
   function handleEqualButton() {
     if (display && firstNum) {
       switch (operator) {
-        case '&divide;':
+        case '÷':
           setDisplay(parseInt(firstNum) / parseInt(display))
           break
         case '+':
@@ -57,7 +57,7 @@ export function App() {
             %
           </button>
           <button className="button op" onClick={handleOperator}>
-            &divide;
+            ÷
           </button>
           <button className="button" value={7} onClick={handleClickNumber}>
             7
