@@ -2,10 +2,9 @@
 import React, { useState } from 'react'
 
 export function App() {
-  // uddate this when user presses a digit:
   const [display, setDisplay] = useState(0)
   const [firstNum, setFirstNum] = useState(0)
-  const [operator, setOperator] = useState(0)
+  const [operator, setOperator] = useState('')
 
   function handleACButton() {
     setDisplay(0)
@@ -13,8 +12,10 @@ export function App() {
     setOperator('')
   }
 
+  function percentageButton() {
+    setDisplay(display / 100)
+  }
   function handleClickNumber(event) {
-    console.log(display + event.target.value)
     setDisplay(display + event.target.value)
   }
 
@@ -26,7 +27,7 @@ export function App() {
   function handleEqualButton() {
     if (display && firstNum) {
       switch (operator) {
-        case '/':
+        case '&divide;':
           setDisplay(parseInt(firstNum) / parseInt(display))
           break
         case '+':
@@ -35,8 +36,9 @@ export function App() {
         case '-':
           setDisplay(parseInt(firstNum) - parseInt(display))
           break
-        case '*':
+        case 'x':
           setDisplay(parseInt(firstNum) * parseInt(display))
+          break
         default:
           break
       }
@@ -51,10 +53,10 @@ export function App() {
             AC
           </button>
           <button className="button fn">&plusmn;</button>
-          <button className="button fn" onClick={handleOperator}>
+          <button className="button fn" onClick={percentageButton}>
             %
           </button>
-          <button className="button op" value="/" onClick={handleOperator}>
+          <button className="button op" onClick={handleOperator}>
             &divide;
           </button>
           <button className="button" value={7} onClick={handleClickNumber}>
@@ -67,7 +69,7 @@ export function App() {
             9
           </button>
           <button className="button op" value="*" onClick={handleOperator}>
-            &times;
+            x
           </button>
           <button className="button" value={4} onClick={handleClickNumber}>
             4
@@ -78,25 +80,19 @@ export function App() {
           <button className="button" value={6} onClick={handleClickNumber}>
             6
           </button>
-          <button className="button op" value="-" onClick={handleOperator}>
-            &minus;
+          <button className="button op" onClick={handleOperator}>
+            -
           </button>
           <button className="button" value={1} onClick={handleClickNumber}>
             1
           </button>
-          <button
-            className="button"
-            onClick={function () {
-              setDisplay(display + '2')
-              console.log(display)
-            }}
-          >
+          <button className="button" value={2} onClick={handleClickNumber}>
             2
           </button>
           <button className="button" value={3} onClick={handleClickNumber}>
             3
           </button>
-          <button className="button op" value="+" onClick={handleOperator}>
+          <button className="button op" onClick={handleOperator}>
             +
           </button>
           <button className="button x2" value={0} onClick={handleClickNumber}>
